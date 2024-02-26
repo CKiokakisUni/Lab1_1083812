@@ -12,14 +12,21 @@ def more(text):
                 break
 
 
-url = 'http://python.org/'  # προσδιορισμός του url
+url = input("URL: ")
+
+if not url.startswith("http"):
+    url = "http://" + url
 
 with requests.get(url) as response:  # το αντικείμενο response
-    print(f"Website headers are {url}\n{response.headers}\n")
+    print(f"\nWebsite headers for {url}:\n\n{response.headers}\n")
+
     server = response.headers.get("Server")
-    print(f"Server: {server}")
+    print(f"Server: {server if server else 'No server found'}\n")
+
     cookies = response.headers.get("Set-Cookie")
+    print(f"This website {'uses' if cookies else 'does not use'} cookies\n")
     for cookie in response.cookies:
-        print(cookie.expires)
+        print("Name:", cookie.name)
+        print("Expires:", cookie.expires)
 
 
