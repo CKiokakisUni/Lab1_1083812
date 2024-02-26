@@ -15,5 +15,11 @@ def more(text):
 url = 'http://python.org/'  # προσδιορισμός του url
 
 with requests.get(url) as response:  # το αντικείμενο response
-    html = response.text
-    more(html)
+    print(f"Website headers are {url}\n{response.headers}\n")
+    server = response.headers.get("Server")
+    print(f"Server: {server}")
+    cookies = response.headers.get("Set-Cookie")
+    for cookie in response.cookies:
+        print(cookie.expires)
+
+
